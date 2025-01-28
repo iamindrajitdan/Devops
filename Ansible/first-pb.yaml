@@ -1,0 +1,9 @@
+---
+- name: basic playbook
+  hosts: all  # Define the hosts to run the playbook on
+
+  tasks:
+  - name: test connectivity
+    ping:  # Test connectivity to the hosts
+  - name: print output
+    debug: msg="Alright!!!"  # Print a debug message

@@ -1,0 +1,20 @@
+---
+- name: Install and Start NGINX on Ubuntu
+  hosts: all
+  become: yes  # Ensures that the tasks are executed with sudo privileges
+
+  tasks:
+    - name: Update APT package index
+      apt:
+        update_cache: yes  # Update the APT package index
+
+    - name: Install NGINX
+      apt:
+        name: nginx
+        state: present  # Ensure NGINX is installed
+
+    - name: Ensure NGINX is started and enabled
+      service:
+        name: nginx
+        state: started  # Ensure NGINX service is started
+        enabled: yes  # Ensure NGINX service is enabled on boot
