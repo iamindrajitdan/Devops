@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-app  # Name of the Deployment
+  labels:
+    app: mongo-app  # Label for the Deployment
+spec:
+  replicas: 1  # Number of replicas
+  selector:
+    matchLabels:
+      app: mongo-app  # Selector to match the labels of the Pods
+  template:
+    metadata:
+      labels:
+        app: mongo-app  # Label for the Pods
+    spec:
+      containers:
+      - name: mongo-app  # Name of the container
+        image: mongo:latest  # Docker image to use for the container
+        volumeMounts:
+          - mountPath: /data/db  # Path to mount the volume      
+            name: mongo-vol  # Name of the volume
+      volumes:
+      - name: mongo-vol  # Name of the volume
+        persistentVolumeClaim:
+          claimName: pvc  # Name of the PersistentVolumeClaim
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-app  # Name of the Service
+  labels:
+    app: mongo-app  # Label for the Service
+spec:
+  type: ClusterIP  # Type of Service
+  ports:
+  - port: 27017  # Port that the Service will expose
+    targetPort: 27017  # Port on the container to forward traffic to
+  selector:
+    app: mongo-app  # Selector to match the labels of the Pods

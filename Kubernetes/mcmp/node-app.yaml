@@ -1,0 +1,43 @@
+# Deployment configuration for the Node.js application
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app # Name of the deployment
+spec:
+  replicas: 3 # Number of replicas/pods
+  selector:
+    matchLabels:
+      app: node-app # Label selector for pods
+  template:
+    metadata:
+      labels:
+        app: node-app # Label for the pods
+    spec:
+      containers:
+      - name: node-app # Name of the container
+        image: philippaul/node-mongo-db:05 # Docker image for the container
+        env:
+          - name: MONGO_HOST # Environment variable for MongoDB connection
+            valueFrom: 
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGO_HOST
+          - name: MONGO_PORT # Environment variable for MongoDB connection
+            valueFrom: 
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGO_PORT
+---
+# Service configuration to expose the Node.js application
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-app # Name of the service
+spec:
+  selector:
+    app: node-app # Label selector for pods
+  ports:
+    - protocol: TCP
+      port: 80 # Port exposed by the service
+      targetPort: 3000 # Port on the container to forward traffic to
+  type: LoadBalancer # Type of service (LoadBalancer for external access)

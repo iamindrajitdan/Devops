@@ -1,0 +1,22 @@
+# This is a Kubernetes Deployment configuration file for deploying a Node.js application.
+# The application uses the Docker image 'philippaul/node-demo-app:01'.
+
+apiVersion: apps/v1  # Specifies the API version for the Deployment resource.
+kind: Deployment  # Defines the kind of resource, which is a Deployment in this case.
+metadata:
+  name: node-app  # The name of the Deployment resource.
+spec:
+  replicas: 3  # Specifies the number of pod replicas to run.
+  selector:
+    matchLabels:
+      app: node-app  # Label selector to identify the pods managed by this Deployment.
+  template:
+    metadata:
+      labels:
+        app: node-app  # Labels to be applied to the pods created by this Deployment.
+    spec:
+      containers:
+      - name: node-app  # The name of the container.
+        image: philippaul/node-demo-app:01  # The Docker image to use for the container.
+        ports:
+        - containerPort: 3000  # The port on which the container listens for incoming traffic.
