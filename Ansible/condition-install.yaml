@@ -1,0 +1,23 @@
+---
+- name: Install and Start Web Server
+  hosts: all
+  become: yes  # Ensures that the tasks are executed with sudo privileges
+
+  tasks:
+    - name: Update APT package index on Ubuntu
+      apt:
+        update_cache: yes  # Update the APT package index
+      when: ansible_os_family == "Debian"  # Condition to run only on Debian-based systems
+
+    - name: Install HTTPD on RedHat
+      yum:
+        name: httpd
+        state: present  # Ensure HTTPD is installed
+      when: ansible_os_family == "RedHat"  # Condition to run only on RedHat-based systems
+
+    - name: Ensure HTTPD is started and enabled on RedHat
+      service:
+        name: httpd
+        state: started  # Ensure HTTPD service is started
+        enabled: yes  # Ensure HTTPD service is enabled on boot
+      when: ansible_os_family == "RedHat"  # Condition to run only on RedHat-based systems

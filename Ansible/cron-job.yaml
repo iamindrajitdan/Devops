@@ -1,0 +1,15 @@
+---
+- name: Cron Setup
+  hosts: all
+
+  tasks:
+    - name: Add cron job
+      cron:
+        name: Run test.sh  # Name of the cron job
+        minute: 30  # Minute when the job will run (30th minute)
+        hour: 18  # Hour when the job will run (18:00 or 6 PM)
+        day: 15  # Day of the month when the job will run (15th day)
+        month: "*"  # Month when the job will run (every month)
+        weekday: "*"  # Day of the week when the job will run (every day)
+        user: vagrant  # User who will run the job
+        job: /tmp/scripts/test.sh  # Command or script to be executed

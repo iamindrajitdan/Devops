@@ -1,0 +1,11 @@
+---
+- name: Set password
+  hosts: all
+  become: true  # Ensures that the tasks are executed with sudo privileges
+
+  tasks:
+    - name: Setting password
+      user:
+        name: jit  # Specify the username
+        update_password: always  # Always update the password
+        password: "{{'jit' | password_hash('sha512')}}"  # Set the password using SHA-512 hash

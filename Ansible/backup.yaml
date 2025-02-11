@@ -1,0 +1,13 @@
+# This playbook takes a backup of the specified file and stores it in the destination directory with backup enabled
+- name: Taking backup
+  hosts: all
+
+  tasks:
+    # Task to copy the file and create a backup
+    - name: Backup
+      copy:
+        src: /etc/ansible/playbooks/first-pb.yaml  # Source file to be backed up
+        dest: /vagrant  # Destination directory where the backup will be stored
+        mode: 0666  # Permissions for the copied file
+        backup: true  # Enable backup
+

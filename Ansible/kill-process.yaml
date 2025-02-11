@@ -1,0 +1,10 @@
+---
+# Playbook to kill a process on all hosts
+- name: Killing a process
+  hosts: all
+  become: true  # Run tasks with elevated privileges
+
+  tasks:
+    - name: Killing a running process nginx
+      ignore_errors: yes  # Ignore errors if the process is not found or cannot be killed
+      shell: "pgrep nginx | xargs kill"  # Command to find and kill the nginx process

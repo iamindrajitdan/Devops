@@ -1,0 +1,15 @@
+---
+- name: Firewall Changes
+  hosts: all
+  become: true  # Ensures that the tasks are executed with sudo privileges
+
+  tasks:
+    - name: Enable a service in firewall
+      firewalld:
+        service: nginx  # Specify the service to be enabled in the firewall
+        permanent: true  # Ensure the change is permanent
+        state: enabled  # Enable the service in the firewall
+
+    - name: Reload the firewalld
+      service: firewalld
+      state: reloaded  # Reload the firewalld to apply changes

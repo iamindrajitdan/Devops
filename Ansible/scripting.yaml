@@ -1,0 +1,10 @@
+---
+- name: Run a script
+  hosts: all
+
+  tasks:
+    - name: Run script
+      shell: ./test.sh >> test.log  # Run the script and append output to test.log
+      args:
+        chdir: /tmp/scripts  # Change to the specified directory before running the script
+        creates: test.log  # Only run the script if test.log does not exist

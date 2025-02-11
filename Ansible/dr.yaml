@@ -1,0 +1,9 @@
+---
+- name: Creating a directory
+  hosts: all
+
+  tasks:
+    - name: Ensure the directory is absent
+      file:
+        path: /tmp/myfolder  # Specify the path of the directory
+        state: absent  # Ensure the directory is absent (deleted if it exists)

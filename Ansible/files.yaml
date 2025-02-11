@@ -1,0 +1,11 @@
+---
+- name: File module
+  hosts: all
+
+  tasks:
+    - name: Creating file
+      file:
+        path: /tmp/newfile.txt  # Specify the path of the file
+        state: absent  # Ensure the file is absent (deleted if it exists)
+        mode: 0764  # Set the file permissions
+        backup: true  # Create a backup of the file if it already exists

@@ -1,0 +1,11 @@
+---
+- name: Copying files to remote
+  hosts: all
+
+  tasks:
+    - name: Copy files
+      copy:
+        src: /etc/ansible/playbooks  # Source directory on the local machine
+        dest: /tmp  # Destination directory on the remote machine
+        mode: 0666  # Set the file permissions
+        backup: true  # Create a backup of the destination file if it already exists
