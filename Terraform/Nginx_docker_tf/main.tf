@@ -5,7 +5,7 @@ resource "docker_image" "nginx" {
 
 # Start a container using the nginx image
 resource "docker_container" "nginx" {
-    name  = "foo"
+    name  = "nginx"
     image = docker_image.nginx.image_id
 
     ports {
